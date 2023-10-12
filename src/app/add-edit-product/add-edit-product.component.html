@@ -41,7 +41,7 @@
   </div>
   <!---ACTIONS-->
   <div mat-dialog-actions class="action">
-    <button mat-raised-button>cancel</button>
-    <button mat-raised-button color="primary" type="submit">save</button>
+    <button mat-raised-button [mat-dialog-close]="false">cancel</button>
+    <button mat-raised-button color="primary" type="submit">{{data ? 'Update' : 'Save'}}</button>
   </div>
 </form>
