@@ -1,0 +1,49 @@
+<div mat-dialog-title>
+  <h1>Product Form</h1>
+</div>
+<!--FORM-->
+<form [formGroup]="productForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content class="content">
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" placeholder="Royal Canin kitten" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" placeholder="Cibo umido per gatti fino ai 12 mesi" formControlName="description">
+      </mat-form-field>
+
+    </div>
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Price</mat-label>
+        <input matInput type="text" placeholder="2€" formControlName="price">
+      </mat-form-field>
+
+
+      <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <input matInput type="text" placeholder="Alimentazione" formControlName="category">
+      </mat-form-field>
+
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Photos</mat-label>
+      <input matInput [value]="fileName" readonly placeholder="Choose a file">
+      <input type="file" style="display:none" #fileInput (change)="onFileSelected($event)" formControlName="photos">
+      <button mat-icon-button matSuffix (click)="fileInput.click()">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+    </mat-form-field>
+
+
+  </div>
+  <!---ACTIONS-->
+  <div mat-dialog-actions class="action">
+    <button mat-raised-button>cancel</button>
+    <button mat-raised-button color="primary" type="submit">save</button>
+  </div>
+</form>
