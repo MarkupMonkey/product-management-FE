@@ -34,12 +34,10 @@
       <mat-label>Photos</mat-label>
       <input matInput [value]="fileName" readonly placeholder="Choose a file">
       <input type="file" style="display:none" #fileInput (change)="onFileSelected($event)" formControlName="photos">
-      <button mat-icon-button matSuffix (click)="fileInput.click()">
+      <button matSuffix type="button" (click)="fileInput.click(); $event.preventDefault()">
         <mat-icon>attach_file</mat-icon>
       </button>
     </mat-form-field>
-
-
   </div>
   <!---ACTIONS-->
   <div mat-dialog-actions class="action">
