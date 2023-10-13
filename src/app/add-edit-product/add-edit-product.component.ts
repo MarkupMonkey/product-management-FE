@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProductService } from '../services/product.service';
-import { IProduct } from '../services/product.type';
-import { Observable } from 'rxjs';
-import { Dialog, DialogRef } from '@angular/cdk/dialog';
+
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
 @Component({

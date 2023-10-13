@@ -54,6 +54,8 @@ export class AppComponent implements OnInit {
     this._productService.getProductList().subscribe({
       next: (res: any) => {
         this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
       ,
       error: (err) => {
