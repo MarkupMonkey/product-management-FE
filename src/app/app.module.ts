@@ -17,13 +17,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ProductComponent } from './product/product.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddEditProductComponent
+    AddEditProductComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
