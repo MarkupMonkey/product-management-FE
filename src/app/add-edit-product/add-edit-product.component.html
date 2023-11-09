@@ -1,47 +1,63 @@
-<div mat-dialog-title>
-  <h1>Product Form</h1>
-</div>
+<h3 mat-dialog-title class="m-0">
+  {{ mode === "create" ? "Create a product" : "Update product" }}
+</h3>
 <!--FORM-->
 <form [formGroup]="productForm" (ngSubmit)="onFormSubmit()">
-  <div mat-dialog-content class="content">
-    <div class="row">
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput type="text" placeholder="Royal Canin kitten" formControlName="name">
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Description</mat-label>
-        <input matInput type="text" placeholder="Cibo umido per gatti fino ai 12 mesi" formControlName="description">
-      </mat-form-field>
-
+  <div class="cross-validation"
+    [class.cross-validation-error]="productForm.errors?.['identityRevealed'] && (productForm.touched || productForm.dirty)">
+    <div
+      *ngIf="productForm.controls['name'].invalid && (productForm.controls['name'].dirty || productForm.controls['name'].touched)"
+      style="color: red; margin: 1rem">
+      First Name is required.
     </div>
-    <div class="row">
-      <mat-form-field appearance="fill">
-        <mat-label>Price</mat-label>
-        <input matInput type="text" placeholder="2€" formControlName="price">
-      </mat-form-field>
-
-
-      <mat-form-field appearance="fill">
-        <mat-label>Category</mat-label>
-        <input matInput type="text" placeholder="Alimentazione" formControlName="category">
-      </mat-form-field>
-
+    <div
+      *ngIf="productForm.controls['name'].invalid && (productForm.controls['name'].dirty || productForm.controls['name'].touched) && name?.errors?.['minlength']"
+      style="color: red; margin: 1rem">
+      Fisrt Name must be at least 4 characters long.
     </div>
+    <div mat-dialog-content class="content">
+      <div class="row">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" placeholder="Royal Canin kitten" formControlName="name" required>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Photos</mat-label>
-      <input matInput [value]="fileName" readonly placeholder="Choose a file">
-      <input type="file" style="display:none" #fileInput (change)="onFileSelected($event)" formControlName="photos">
-      <button matSuffix type="button" (click)="fileInput.click(); $event.preventDefault()">
-        <mat-icon>attach_file</mat-icon>
-      </button>
-    </mat-form-field>
-  </div>
-  <!---ACTIONS-->
-  <div mat-dialog-actions class="action">
-    <button mat-raised-button [mat-dialog-close]="false">cancel</button>
-    <button mat-raised-button color="primary" type="submit">{{data ? 'Update' : 'Save'}}</button>
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <input matInput type="text" placeholder="Cibo umido per gatti fino ai 12 mesi" formControlName="description">
+        </mat-form-field>
+
+      </div>
+      <div *ngIf="price?.errors?.['pattern']" style="color: red; margin: 1rem">
+        Price must be a number.
+      </div>
+      <div class="row">
+        <mat-form-field appearance="fill">
+          <mat-label>Price</mat-label>
+          <input matInput type="text" placeholder="2€" formControlName="price">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="fill">
+          <mat-label>Category</mat-label>
+          <input matInput type="text" placeholder="Alimentazione" formControlName="category">
+        </mat-form-field>
+
+      </div>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Photos</mat-label>
+        <input matInput [value]="fileName" readonly placeholder="Choose a file">
+        <input type="file" style="display:none" #fileInput (change)="onFileSelected($event)" formControlName="photos">
+        <button matSuffix type="button" (click)="fileInput.click(); $event.preventDefault()">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <!---ACTIONS-->
+    <div mat-dialog-actions class="action">
+      <button mat-raised-button [mat-dialog-close]="false">cancel</button>
+      <button mat-raised-button color="primary" type="submit">{{data ? 'Update' : 'Save'}}</button>
+    </div>
   </div>
 </form>

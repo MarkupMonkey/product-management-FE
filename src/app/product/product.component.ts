@@ -5,27 +5,19 @@ import { ProductService } from '../services/product.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IProduct } from '../services/product.type';
+import { Product } from '../services/product.type';
 import { CoreService } from '../core/core.service';
-
-export interface UserData {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  category: string;
-}
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-export class ProductComponent  implements OnInit {
+export class ProductComponent implements OnInit {
   title = 'product-management-FE';
 
-  displayedColumns: string[] = ['id', 'name', 'description', 'price', 'category', 'action'];
-  dataSource!: MatTableDataSource<IProduct>
+  displayedColumns: string[] = ['id', 'name', 'description', 'price', 'category', 'photos', 'action'];
+  dataSource!: MatTableDataSource<Product>
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

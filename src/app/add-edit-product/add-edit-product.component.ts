@@ -1,9 +1,15 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../services/product.service';
 
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
+import { Product, ProductForm } from '../services/product.type';
+
+export type ProductModal = {
+  mode: 'create' | 'update';
+}
+
 @Component({
   selector: 'app-add-edit-product',
   templateUrl: './add-edit-product.component.html',
@@ -11,7 +17,9 @@ import { CoreService } from '../core/core.service';
 })
 export class AddEditProductComponent implements OnInit {
   fileName: string = '';
-  productForm: FormGroup;
+  productForm!: FormGroup;
+  @Input('mode')
+  mode: 'create' | 'update' = 'create';
 
   constructor(
     private _fb: FormBuilder,
@@ -20,16 +28,35 @@ export class AddEditProductComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _coreService: CoreService) {
 
-    this.productForm = this._fb.group({
-      name: '',
-      description: '',
-      price: '',
-      category: '',
-      photos: ['', '', ''],
-    })
+      this.productForm = new FormGroup<ProductForm>({
+        id: new FormControl(),
+        name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
+        description: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+        price: new FormControl( '', [Validators.required, Validators.pattern("^[0-9]*$")]),
+        category: new FormControl('', [Validators.required]),
+        photos: new FormControl(['', ''], )
+      });
+
   }
   ngOnInit(): void {
-    this.productForm.patchValue(this.data)
+    // this.productForm.patchValue(this.data);
+
+  }
+  get name() {
+    return this.productForm.get('name');
+  }
+  get description() {
+    return this.productForm.get('description');
+  }
+  get price() {
+    return this.productForm.get('price');
+  }
+  get category() {
+    return this.productForm.get('category');
+  }
+
+  get photos(){
+    return this.productForm.get('photos')
   }
 
   onFileSelected(event: Event) {
